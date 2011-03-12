@@ -1,10 +1,13 @@
 = ashbe
 
-* FIX (url)
+* Homepage[http://copiousfreetime.org/projects/ashbe]
+* git clone git://github.com/copiousfreetime/ashbe.git
+* {Github}[http://github.com/copiousfreetime/ashbe]
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Asbhe is a Ruby wrapper around the HBase java client library.  It aims to make
+accessing HBase a more Ruby-esque experience.
 
 == FEATURES/PROBLEMS:
 
@@ -16,11 +19,12 @@ FIX (describe your package)
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* JRuby 1.6 or higher
+* HBase and Hadoop jars (See: Ashbe)
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+    [sudo] gem install ashbe
 
 == DEVELOPERS:
 
