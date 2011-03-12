@@ -1,0 +1,8 @@
+.autotest
+History.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+bin/ashbe
+lib/ashbe.rb
+test/test_ashbe.rb
