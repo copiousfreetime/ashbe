@@ -3,7 +3,7 @@ require 'minitest/pride'
 require 'ashbe'
 
 describe Ashbe do
-  it "should have some tests or I will kneecap you" do
-    flunk
+  it "should have a version" do
+    Ashbe::VERSION.must_match /\d+\.\d+\.\d+/ 
   end
 end
