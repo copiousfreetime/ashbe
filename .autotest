@@ -1,5 +1,7 @@
 # vim: ft=ruby
 
+require 'autotest/growl'
+
 Autotest.add_hook :initialize do |at|
 
   at.testlib = 'minitest/autorun'
