@@ -13,15 +13,6 @@ end
 
 Hoe.plugin :doofus, :git, :gemspec2
 
-# Hoe.plugin :compiler
-# Hoe.plugin :doofus
-# Hoe.plugin :gem_prelude_sucks
-# Hoe.plugin :gemspec2
-# Hoe.plugin :git
-# Hoe.plugin :inline
-# Hoe.plugin :racc
-# Hoe.plugin :rubyforge
-
 Hoe.spec 'ashbe' do
   developer 'Jeremy Hinegardner', 'jeremy@copiousfreetime.org'
 
