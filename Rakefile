@@ -39,5 +39,7 @@ Hoe.spec 'ashbe' do
   # and we use autotest
   self.extra_dev_deps << [ 'ZenTest', '~> 4.5.0' ]
 
+  # buildr for downloading the jars needed to run the tests
+  self.extra_dev_deps << [ 'buildr', '~> 1.4.4' ]
 end
 
