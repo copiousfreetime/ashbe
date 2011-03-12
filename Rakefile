@@ -32,5 +32,6 @@ Hoe.spec 'ashbe' do
 
   # buildr for downloading the jars needed to run the tests
   self.extra_dev_deps << [ 'buildr', '~> 1.4.4' ]
+
 end
 
