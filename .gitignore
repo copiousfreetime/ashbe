@@ -3,3 +3,4 @@ pkg/
 doc/
 coverage/
 test/jars/
+*.gemspec
