@@ -4,3 +4,4 @@ doc/
 coverage/
 test/jars/
 *.gemspec
+target/
