@@ -76,6 +76,7 @@ module Ashbe
     require 'ashbe/java'
     require 'ashbe/configuration'
     require 'ashbe/admin_connection'
+    require 'ashbe/column_family'
     require 'ashbe/compression'
   end
 
