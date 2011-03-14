@@ -6,5 +6,6 @@ module Ashbe
 
    include_package 'org.apache.hadoop.hbase.client'
 
+   Compression       = org.apache.hadoop.hbase.io.hfile.Compression
  end
 end
