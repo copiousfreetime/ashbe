@@ -13,5 +13,15 @@ module Ashbe
       ::Ashbe::Java::Compression::Algorithm.valueOf( name.to_s.upcase )
     end
     extend self
+
+    #
+    # loop over all the known compression algorithm enums
+    # and create constants for them
+    #
+    algorithms.each do |alg|
+      if not const_defined?( alg.name ) then
+        const_set( alg.name, alg )
+      end
+    end
   end
 end
