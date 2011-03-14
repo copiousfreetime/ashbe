@@ -75,8 +75,9 @@ module Ashbe
   def self.require_lib
     require 'ashbe/java'
     require 'ashbe/configuration'
+    require 'ashbe/admin_connection'
   end
 
-  extend self
+
 end
 
