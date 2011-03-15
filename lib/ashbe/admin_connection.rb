@@ -36,5 +36,19 @@ module Ashbe
       t = Table.new( table, families, &block )
       createTable( t.to_htable )
     end
+
+
+    #
+    # This will drop a table from the system, this means first disabling it and
+    # then deleteing ig
+    #
+    def drop_table( table_name )
+      disable_table( table_name )
+      delete_table( table_name )
+    end
+    alias table_exists? tableExists
+    alias delete_table  deleteTable
+    alias disable_table disableTable
+
   end
 end
