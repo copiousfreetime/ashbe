@@ -74,8 +74,10 @@ module Ashbe
   #
   def self.require_lib
     require 'ashbe/java'
+    require 'ashbe/bytes'
     require 'ashbe/configuration'
     require 'ashbe/admin_connection'
+    require 'ashbe/table'
     require 'ashbe/column_family'
     require 'ashbe/compression'
   end

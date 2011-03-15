@@ -13,6 +13,8 @@ module Ashbe
     #   :compression => the compresstion to use (default: none)
     #                   valid compression options are :gz, :lzo, :none
     #
+    # We also accept an HColumnDescriptor as the first argument too
+    #
     def initialize( family_name, options = {} )
       super( family_name )
       self.max_versions = options[:max_version] || DEFAULT_VERSIONS
