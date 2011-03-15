@@ -1,10 +1,13 @@
 require 'java'
 module Ashbe
  module Java
-   Path  = org.apache.hadoop.fs.Path
+
+   # general java classes
    JFile = java.io.File
 
-   include_package 'org.apache.hadoop.hbase.client'
+
+   # Hadoop classes we need
+   Path  = org.apache.hadoop.fs.Path
 
 
    # HBase specific classes
@@ -12,5 +15,9 @@ module Ashbe
    HTableDescriptor  = org.apache.hadoop.hbase.HTableDescriptor
    HColumnDescriptor = org.apache.hadoop.hbase.HColumnDescriptor
    Compression       = org.apache.hadoop.hbase.io.hfile.Compression
+
+
+   # and all of client, since that is what this library basically wraps
+   include_package 'org.apache.hadoop.hbase.client'
  end
 end

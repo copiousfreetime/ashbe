@@ -47,5 +47,9 @@ module Ashbe
       getFamily( to_bytes( family_name ) )
     end
 
+    def to_htable
+      ::Ashbe::Java::HTableDescriptor.new( self )
+    end
+
   end
 end

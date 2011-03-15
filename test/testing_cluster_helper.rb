@@ -4,7 +4,7 @@ module Ashbe
   module Testing
     class Cluster
       def self.config_files
-        Dir.glob( File.join( SPEC_DIR, "data/config", "*.xml" ) )
+        spec_config_files
       end
 
       attr_reader :config
