@@ -50,4 +50,11 @@ describe Ashbe::AdminConnection do
     tables.size.must_equal 3
     tables.collect { |t| t.name }.sort.must_equal names.sort
   end
+
+  it "can produce a table connection" do
+    @admin.create_table( @table_name, @families )
+    conn = @admin.table_connection_to( @table_name )
+    conn.table_name.must_equal @table_name
+  end
+
 end

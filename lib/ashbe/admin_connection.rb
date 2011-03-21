@@ -32,6 +32,13 @@ module Ashbe
 
     alias configuration getConfiguration
 
+    #
+    # Return a table connection for the given table
+    #
+    def table_connection_to( table_name )
+      ::Ashbe::TableConnection.new( table_name, self.configuration )
+    end
+
     def create_table( table, families, &block )
       t = Table.new( table, families, &block )
       createTable( t.to_htable )
