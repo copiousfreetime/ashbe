@@ -6,6 +6,14 @@ module Ashbe
   #
   class Table < ::Ashbe::Java::HTableDescriptor
     include ::Ashbe::Bytes
+
+    #
+    # Create a new Ashbe::Table from a HTableDescriptor
+    #
+    def self.from_htable( htable )
+      families = htable.getFamilies.collect { |f| ColumnFamily.new( f ) }
+      Table.new( htable.getNameAsString, families )
+    end
     #
     # Create a new Table, with the given name and column families.  If a block
     # is given, yield self 

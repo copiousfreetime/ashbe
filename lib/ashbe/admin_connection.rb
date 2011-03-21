@@ -50,5 +50,12 @@ module Ashbe
     alias delete_table  deleteTable
     alias disable_table disableTable
 
+    #
+    # Return an array of all the known tables in hbase cluster
+    #
+    def tables
+      listTables.collect { |t| Table.new( t ) }
+    end
+
   end
 end

@@ -9,8 +9,8 @@ describe Ashbe::AdminConnection do
   end
 
   after do
-    if @admin.table_exists?( @table_name ) then
-      @admin.drop_table( @table_name )
+    @admin.tables.each do |table|
+      @admin.drop_table( table.name )
     end
   end
 
@@ -36,5 +36,18 @@ describe Ashbe::AdminConnection do
     @admin.table_exists?( @table_name ).must_equal true
     @admin.drop_table( @table_name )
     @admin.table_exists?( @table_name ).must_equal false
+  end
+
+  it "can list the known tables" do
+    names = []
+    [ 1, 2, 3 ].each do |x|
+      name = "#{@table_name}_#{x}"
+      names << name
+      @admin.create_table( name, @families ) unless @admin.table_exists?( name )
+    end
+
+    tables = @admin.tables
+    tables.size.must_equal 3
+    tables.collect { |t| t.name }.sort.must_equal names.sort
   end
 end
