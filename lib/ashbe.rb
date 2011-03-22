@@ -80,6 +80,7 @@ module Ashbe
     require 'ashbe/admin_connection'
     require 'ashbe/table_connection'
     require 'ashbe/table'
+    require 'ashbe/qualifier'
     require 'ashbe/column_family'
     require 'ashbe/compression'
   end
