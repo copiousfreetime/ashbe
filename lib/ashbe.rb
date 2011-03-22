@@ -81,6 +81,7 @@ module Ashbe
     require 'ashbe/table_connection'
     require 'ashbe/table'
     require 'ashbe/qualifier'
+    require 'ashbe/row'
     require 'ashbe/column_family'
     require 'ashbe/compression'
   end
