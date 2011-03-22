@@ -75,6 +75,7 @@ module Ashbe
   def self.require_lib
     require 'ashbe/java'
     require 'ashbe/bytes'
+    require 'ashbe/cell'
     require 'ashbe/configuration'
     require 'ashbe/admin_connection'
     require 'ashbe/table_connection'
