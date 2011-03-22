@@ -75,15 +75,18 @@ module Ashbe
   def self.require_lib
     require 'ashbe/java'
     require 'ashbe/bytes'
+
+    require 'ashbe/admin'
     require 'ashbe/cell'
+    require 'ashbe/column_family'
+    require 'ashbe/column_family/meta'
+    require 'ashbe/compression'
     require 'ashbe/configuration'
-    require 'ashbe/admin_connection'
-    require 'ashbe/table_connection'
-    require 'ashbe/table'
     require 'ashbe/qualifier'
     require 'ashbe/row'
-    require 'ashbe/column_family'
-    require 'ashbe/compression'
+    require 'ashbe/table'
+    require 'ashbe/table/meta'
+
   end
 
 

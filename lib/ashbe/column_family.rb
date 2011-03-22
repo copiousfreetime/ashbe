@@ -1,43 +1,19 @@
-require 'ashbe'
-
 module Ashbe
   # 
-  # A wrapper around the HColumnDescriptor
+  # A container holding all the qualifiers in a column family for a particular
+  # Row
   #
-  class ColumnFamily < ::Ashbe::Java::HColumnDescriptor
-    #
-    # Create a new ColumnFamily, pass in the name of the family and the
-    # available options:
-    #
-    #   :max_version => number versions to keep (default: 3)
-    #   :compression => the compresstion to use (default: none)
-    #                   valid compression options are :gz, :lzo, :none
-    #
-    # We also accept an HColumnDescriptor as the first argument too
-    #
-    def initialize( family_name, options = {} )
-      super( family_name )
-      self.max_versions = options[:max_version] || DEFAULT_VERSIONS
-      self.compression  = options[:compression] || :none
-    end
+  class ColumnFamily 
 
-    alias name          getNameAsString
-    alias max_versions= setMaxVersions
+    # The name of this column family
+    attr_reader :name
 
+    # all the qualifiers that are held in this column family
+    attr_reader :qualifiers
 
-    #
-    # We want to set the compression for column, which involves doing
-    # an algorithm lookup
-    #
-    def compression=( type )
-      setCompressionType( Compression.algorithm_for( type ) )
-    end
-
-    #
-    # Is this column family compressed?
-    #
-    def compressed?
-      getCompression != Compression::NONE
+    def initialize( name )
+      @name       = name
+      @qualifiers = {}
     end
 
   end

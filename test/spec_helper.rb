@@ -1,3 +1,6 @@
+require 'minitest/spec'
+require 'minitest/pride'
+
 require 'ashbe'
 
 SPEC_DIR = File.dirname( __FILE__ )

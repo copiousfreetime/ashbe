@@ -1,7 +1,7 @@
 require 'ashbe'
 
 module Ashbe
-  class AdminConnection < ::Ashbe::Java::HBaseAdmin
+  class Admin < ::Ashbe::Java::HBaseAdmin
     def self.is_hbase_available?( config = Configuration.new )
       begin
         ::Ashbe::Java::HBaseAdmin.checkHBaseAvailable( config )
@@ -35,12 +35,12 @@ module Ashbe
     #
     # Return a table connection for the given table
     #
-    def table_connection_to( table_name )
-      ::Ashbe::TableConnection.new( table_name, self.configuration )
+    def table( table_name )
+      ::Ashbe::Table.new( table_name, self.configuration )
     end
 
-    def create_table( table, families, &block )
-      t = Table.new( table, families, &block )
+    def create_table( table_name, families, &block )
+      t = ::Ashbe::Table::Meta.new( table_name, families, &block )
       createTable( t.to_htable )
     end
 
@@ -61,7 +61,7 @@ module Ashbe
     # Return an array of all the known tables in hbase cluster
     #
     def tables
-      listTables.collect { |t| Table.new( t ) }
+      listTables.collect { |t| ::Ashbe::Table::Meta.new( t ) }
     end
 
   end

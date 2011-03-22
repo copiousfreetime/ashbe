@@ -1,5 +1,3 @@
-require 'minitest/spec'
-require 'minitest/pride'
 require 'ashbe'
 
 describe Ashbe do

@@ -1,41 +1,33 @@
 require 'spec_helper'
 
 describe Ashbe::Table do
+
   before do
+    @config     = ::Ashbe::Configuration.new( spec_config_files )
+    @admin      = ::Ashbe::Admin.new( @config )
     @table_name = "test_table"
-    @families   = %w[ foo bar baz ].collect { |c| Ashbe::ColumnFamily.new( c ) }.sort_by{ |f| f.name }
-  end
-  it "can create a new table" do
-    t = Ashbe::Table.new( "test_table" )
-    t.name.must_equal "test_table"
+    @families   = %w[ foo bar baz ].collect { |c| Ashbe::ColumnFamily::Meta.new( c ) }.sort_by{ |f| f.name }
+    @admin.create_table( @table_name, @families )
+    @conn       = ::Ashbe::Table.new( @table_name, @config )
   end
 
-  it "can add a single family during initialization" do
-    t = Ashbe::Table.new( "test_table",  Ashbe::ColumnFamily.new( "foo" ) )
-    t.families.size.must_equal 1
-    t.has_family?( "foo" ).must_equal true
-  end
-
-  it "can add a list of famlies during initialization" do
-    t = Ashbe::Table.new( "test_table", @families )
-    t.families.size.must_equal 3
-    t.has_family?( "bar" ).must_equal true
-  end
-
-  it "can add families via a block" do
-    t = Ashbe::Table.new( @table_name ) do |table|
-      @families.each do |f|
-        table.add_family( f )
-      end
+  after do
+    if @admin.table_exists?( @table_name ) then
+      @admin.drop_table( @table_name )
     end
-
-    t.families.size.must_equal 3
-    t.has_family?( "baz" ).must_equal true
-
   end
 
-  it "returns all the families" do
-    t = Ashbe::Table.new( "test_table", @families )
-    t.families.sort_by { |f| f.name }.must_equal @families
+  it "can connect to a table" do
+    tc = ::Ashbe::Table.new( @table_name, @config )
+    tc.is_auto_flush?.must_equal true
+  end
+
+  it "can put a row into the table" do
+    row = @conn.put( 12345, { 'foo' => { '1' => 'one',  '2' => 'two' },
+                              'bar' => { '4' => 'four', '6' => 'six' },
+                              'baz' => { '42' => 'a' } } )
+    # TODO:
+    #row.key.must_equal 12345
+    #row.column_families.size.must_equal 3
   end
 end

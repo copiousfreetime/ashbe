@@ -1,63 +1,29 @@
 require 'ashbe'
 
 module Ashbe
-  # 
-  # The meta data about a table. Inherits HTableDescriptor in java land
-  #
-  class Table < ::Ashbe::Java::HTableDescriptor
-    include ::Ashbe::Bytes
+  class Table
+    java_implements "org.apache.hadoop.hbase.client.HTableInterface"
 
-    #
-    # Create a new Ashbe::Table from a HTableDescriptor
-    #
-    def self.from_htable( htable )
-      families = htable.getFamilies.collect { |f| ColumnFamily.new( f ) }
-      Table.new( htable.getNameAsString, families )
-    end
-    #
-    # Create a new Table, with the given name and column families.  If a block
-    # is given, yield self 
-    #
-    #   Table.new( "example" ) do |table|
-    #     table.add_family( column_family )
-    #     ...
-    #   end
-    #
-    def initialize( table_name, families = [], &block )
-      super( table_name )
-      [ families ].flatten.each do |fam|
-        add_family( fam )
-      end
-      yield self if block_given?
+    # Name of the table
+    attr_reader :table_name
+
+    # The ::Ashbe::Configuration used to connect
+    attr_reader :config
+
+    def initialize( table_name, config = Configuration.new )
+      @table_name = table_name
+      @config     = config
+      @htable     = ::Ashbe::Java::HTable.new( @config, @table_name )
     end
 
-    alias add_family  addFamily
-    alias name        getNameAsString
-
-    #
-    # Does this table have a column family with the given name
-    #
-    def has_family?( family_name )
-      hasFamily( to_bytes( family_name ) )
+    def is_auto_flush?
+      @htable.isAutoFlush
     end
 
     #
-    # returns an array of the ColumnFamily's making up this table
-    #
-    def families
-      getFamilies.collect { |f| ColumnFamily.new( f ) }
-    end
+    # Put the given data into 
+    def put( row_or_key, data = {} )
 
-    #
-    # retrieve the ColumnFamily for the given name
-    #
-    def fetch_family( family_name )
-      getFamily( to_bytes( family_name ) )
     end
-
-    def to_htable
-      ::Ashbe::Java::HTableDescriptor.new( self )
-    end
-
   end
 end

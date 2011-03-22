@@ -1,18 +1,11 @@
 require 'spec_helper'
 
 describe Ashbe::ColumnFamily do
-  it "creates a new column_family" do
-    c = Ashbe::ColumnFamily.new( "family_1" )
-    c.name.must_equal "family_1"
+  before do
+    @cf = ::Ashbe::ColumnFamily.new( "foo" )
   end
 
-  it "can be compressed" do
-    c = Ashbe::ColumnFamily.new( "compressed", :compression => :gz )
-    c.compressed?.must_equal true
-  end
-  
-  it "can be not compressed" do
-    c = Ashbe::ColumnFamily.new( "not_compressed" )
-    c.compressed?.must_equal false
+  it "should have a name" do
+    @cf.name.must_equal "foo"
   end
 end
