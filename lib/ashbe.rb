@@ -42,7 +42,6 @@ module Ashbe
   # Use all the jars in the given directory tree, recursively.
   #
   def self.use_jars_in( dir )
-    puts "using jars in #{dir}"
     use_jars( Dir.glob(  "#{dir}/**/*.jar" ) )
   end
 
@@ -76,6 +75,8 @@ module Ashbe
     require 'ashbe/java'
     require 'ashbe/bytes'
 
+    require 'ashbe/struct_like'
+
     require 'ashbe/admin'
     require 'ashbe/cell'
     require 'ashbe/column_family'
@@ -88,7 +89,6 @@ module Ashbe
     require 'ashbe/table/meta'
 
   end
-
 
 end
 
