@@ -1,14 +1,31 @@
+require 'forwardable'
 module Ashbe
-  # 
+  #
   # A container holding a sorted list of Cell's and a name.
   #
-  class Qualifier < ::Array
+  class Qualifier
+    include Enumerable
 
-    attr_accessor :name
+    # the name of the qualifier
+    attr_reader :name
+
+    # all the cells in this qualifier
+    attr_reader :cells
+
+    ### Array Delegation ###
+    extend Forwardable
+    def_delegators :@cells,
+      :empty?, :length, :size, :[], :each, :each_index,
+      :index, :insert, :last
 
     def initialize( name, cells = [] )
       @name = name
-      super( cells.sort )
+      @cells = Array.new
+
+      [ cells ].flatten.each do |cell|
+        @cells << Cell.new( cell )
+      end
+      @cells.sort!
     end
 
     def <<( *other )
