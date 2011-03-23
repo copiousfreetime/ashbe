@@ -10,6 +10,14 @@ module Ashbe
     attr_accessor :timestamp
 
     #
+    # Intercept creating a new object if we are passed in a Cell
+    #
+    def self.new( value, timestamp = nil )
+      return value if Cell === value
+      super
+    end
+
+    #
     # Create the cell with the given value and possible timestamp.  If no
     # timestamp is given, then it is nil.  By default timestamps are assigned by
     # the HBase system.

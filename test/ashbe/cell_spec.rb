@@ -43,4 +43,12 @@ describe Ashbe::Cell do
     
   end
 
+  it "does nothing if a Cell is created form a Cell" do
+    c1 = Ashbe::Cell.new( 42 )
+    c2 = Ashbe::Cell.new( c1 )
+    c2.value.must_equal c1.value
+    c2.timestamp.must_equal c1.timestamp
+    c2.object_id.must_equal c1.object_id
+  end
+
 end
