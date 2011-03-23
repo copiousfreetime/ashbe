@@ -32,7 +32,20 @@ module Ashbe
     # Add a qualifier to the column family
     #
     def add_qualifier( qual )
-      @qualifiers[qual.name] = qual
+      case qual
+      when Qualifier
+        @qualifiers[qual.name] = qual
+      when Array
+        qual.flatten.each { |q| @qualifiers[q.name] = q }
+      when Hash
+        qual.each_pair do |k,v|
+          q = Qualifier.new( k, v )
+          @qualifiers[q.name] = q
+        end
+      else
+        raise ArgumentError, "Unable to add qualifier #{qual.class}:#{qual}"
+      end
+      return self
     end
     alias << add_qualifier
 
