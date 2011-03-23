@@ -1,4 +1,6 @@
+require 'ashbe'
 require 'forwardable'
+
 module Ashbe
   #
   # A container holding a sorted list of Cell's and a name.

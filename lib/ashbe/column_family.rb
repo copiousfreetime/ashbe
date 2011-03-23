@@ -1,3 +1,4 @@
+require 'ashbe'
 require 'forwardable'
 
 module Ashbe
