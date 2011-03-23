@@ -19,7 +19,7 @@ module Ashbe
       :index, :insert, :last
 
     def initialize( name, cells = [] )
-      @name = name
+      @name = name.to_s
       @cells = Array.new
 
       [ cells ].flatten.each do |cell|
