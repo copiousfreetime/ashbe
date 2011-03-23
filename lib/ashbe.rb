@@ -74,6 +74,7 @@ module Ashbe
   def self.require_lib
     require 'ashbe/java'
     require 'ashbe/bytes'
+    require 'core_ext/to_bytes'
 
     require 'ashbe/struct_like'
 
