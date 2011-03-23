@@ -8,6 +8,7 @@ module Ashbe
   #
   class ColumnFamily 
     include Enumerable
+    include ::Ashbe::StructLike
 
     # The name of this column family
     attr_reader :name
@@ -26,7 +27,6 @@ module Ashbe
       @name       = name
       @qualifiers = {}
     end
-    alias_method :has_qualifier?, :has_key?
 
     #
     # Add a qualifier to the column family
@@ -46,25 +46,5 @@ module Ashbe
       add_qualifier( qual )
     end
     alias []= store
-
-    #
-    # Allow for OpenStruct like access to the qualifier instances
-    # via method missing
-    #
-    def method_missing( method, *args, &block )
-      method = method.to_s
-      case method
-      when /=\Z/
-        key = method.chomp('=')
-        value = args.shift
-        store( key, value )
-      else
-        key = method
-        raise( IndexError, "Invalid qualifier name '#{key}'" ) unless has_qualifier?( key )
-        value = @qualifiers[key]
-      end
-      return value
-    end
-
   end
 end
