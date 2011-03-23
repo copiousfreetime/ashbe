@@ -30,6 +30,10 @@ module Ashbe
       @cells.sort!
     end
 
+    def last_value
+      last.value
+    end
+
     def <<( *other )
       insert_sorted( *other )
       return self

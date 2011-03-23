@@ -4,8 +4,8 @@ describe Ashbe::Qualifier do
   before do
     @q = Ashbe::Qualifier.new( "foo" )
     @cells = [
-      Ashbe::Cell.new( 42, Time.now + 100),
-      Ashbe::Cell.new( 42, Time.now ),
+      Ashbe::Cell.new( 2, Time.now + 100),
+      Ashbe::Cell.new( 22, Time.now ),
       Ashbe::Cell.new( 42, Time.now + 50 ), 
     ]
   end
@@ -26,5 +26,10 @@ describe Ashbe::Qualifier do
     @q.push @cells[1]
     @q.shift @cells[2]
     @q.size.must_equal @cells.size
+  end
+
+  it "has a shortcut to return the last value" do
+    @q << @cells
+    @q.last_value.must_equal 2
   end
 end
