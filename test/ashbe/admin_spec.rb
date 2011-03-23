@@ -53,8 +53,8 @@ describe Ashbe::Admin do
 
   it "can produce a table connection" do
     @admin.create_table( @table_name, @families )
-    conn = @admin.table( @table_name )
-    conn.table_name.must_equal @table_name
+    table = @admin.table( @table_name )
+    table.name.must_equal @table_name
   end
 
 end
