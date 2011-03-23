@@ -6,8 +6,6 @@ module Ashbe
     # The meta data about a table. Inherits HTableDescriptor in java land
     #
     class Meta < ::Ashbe::Java::HTableDescriptor
-      include ::Ashbe::Bytes
-
       #
       # Create a new Ashbe::Table from a HTableDescriptor
       #
@@ -39,7 +37,7 @@ module Ashbe
       # Does this table have a column family with the given name
       #
       def has_family?( family_name )
-        hasFamily( to_bytes( family_name ) )
+        hasFamily( family_name.to_bytes )
       end
 
       #
@@ -53,7 +51,7 @@ module Ashbe
       # retrieve the ColumnFamily for the given name
       #
       def fetch_family( family_name )
-        getFamily( to_bytes( family_name ) )
+        getFamily( family_name.to_bytes )
       end
 
       def to_htable
