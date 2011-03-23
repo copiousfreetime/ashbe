@@ -46,5 +46,25 @@ module Ashbe
       add_qualifier( qual )
     end
     alias []= store
+
+    #
+    # Allow for OpenStruct like access to the qualifier instances
+    # via method missing
+    #
+    def method_missing( method, *args, &block )
+      method = method.to_s
+      case method
+      when /=\Z/
+        key = method.chomp('=')
+        value = args.shift
+        store( key, value )
+      else
+        key = method
+        raise( IndexError, "Invalid qualifier name '#{key}'" ) unless has_qualifier?( key )
+        value = @qualifiers[key]
+      end
+      return value
+    end
+
   end
 end
