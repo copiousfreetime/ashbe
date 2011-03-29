@@ -44,7 +44,7 @@ describe Ashbe::Cell do
   end
 
   it "does nothing if a Cell is created form a Cell" do
-    c1 = Ashbe::Cell.new( 42 )
+    c1 = Ashbe::Cell.new( 42.to_bytes )
     c2 = Ashbe::Cell.new( c1 )
     c2.value.must_equal c1.value
     c2.timestamp.must_equal c1.timestamp
