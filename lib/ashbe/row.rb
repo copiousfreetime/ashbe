@@ -110,6 +110,10 @@ module Ashbe
           qualifier_hash.each do |qualifier, value|
             cf << ::Ashbe::Qualifier.new( qualifier, value )
           end
+        when Array
+          qualifier_hash.each do |qualifier|
+            cf << ::Ashbe::Qualifier.new( qualifier )
+          end
         when :all
         end
         cf_data[column_family_name.to_s] = cf

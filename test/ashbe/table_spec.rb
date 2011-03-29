@@ -21,21 +21,21 @@ describe Ashbe::Table do
     end
   end
 
-  # it "can connect to a table" do
-    # t = ::Ashbe::Table.new( @table_name, @config )
-    # t.is_auto_flush?.must_equal true
-  # end
+  it "can connect to a table" do
+    t = ::Ashbe::Table.new( @table_name, @config )
+    t.is_auto_flush?.must_equal true
+  end
 
-  # it "can access the table's meta data" do
-    # @table.name.must_equal @table_name
-    # @table.meta.column_families.size.must_equal @families.size
-  # end
+  it "can access the table's meta data" do
+    @table.name.must_equal @table_name
+    @table.meta.column_families.size.must_equal @families.size
+  end
 
-  # it "can put a row into the table" do
-    # row = @table.put( 12345, @data )
-    # row.key.to_fixnum.must_equal 12345
-    # row.column_families.size.must_equal 3
-  # end
+  it "can put a row into the table" do
+    row = @table.put( 12345, @data )
+    row.key.must_equal 12345
+    row.column_families.size.must_equal 3
+  end
 
   it "can put a row into the table and retrieve it back out" do
     @table.put( 12345, @data )
@@ -47,28 +47,28 @@ describe Ashbe::Table do
     row.baz.wibble.last_value.to_string.must_equal 'a'
   end
 
-  # it "can put a row into the table and retrieve just a column familiy" do
-    # @table.put( 12345, @data )
-    # row = @table.get( 12345, { 'foo' => :all, 'bar' => :all } )
-    # row.key.to_fixnum.must_equal 12345
-    # row.column_families.size.must_equal 2
-    # row.foo.one.last_value.to_string.must_equal '1'
-    # row.bar.eights.last_value.to_fixnum.must_equal 888
-    # lambda { row.baz }.must_raise NoMethodError
-  # end
+  it "can put a row into the table and retrieve just a column familiy" do
+    @table.put( 12345, @data )
+    row = @table.get( 12345, { 'foo' => :all, 'bar' => :all } )
+    row.key.to_fixnum.must_equal 12345
+    row.column_families.size.must_equal 2
+    row.foo.one.last_value.to_string.must_equal '1'
+    row.bar.eights.last_value.to_fixnum.must_equal 888
+    lambda { row.baz }.must_raise NoMethodError
+  end
 
-  # it "can put a row into the table and retrieve just a column family and qualifier" do
-    # @table.put( 12345, @data )
-    # row = @table.get( 12345, { 'foo' => :all, 'bar' => %w[ six ] } )
-    # row.key.to_fixnum.must_equal 12345
-    # row.column_families.size.must_equal 2
+  it "can put a row into the table and retrieve just a column family and qualifier" do
+    @table.put( 12345, @data )
+    row = @table.get( 12345, { 'foo' => :all, 'bar' => %w[ six ] } )
+    row.key.to_fixnum.must_equal 12345
+    row.column_families.size.must_equal 2
 
-    # row.foo.one.last_value.to_string.must_equal '1'
-    # row.bar.six.last_value.to_string.must_equal 'six'
+    row.foo.one.last_value.to_string.must_equal '1'
+    row.bar.six.last_value.to_string.must_equal '6'
 
-    # lambda { row.bar.eight}.must_raise NoMethodError
-    # lambda { row.bar.four }.must_raise NoMethodError
-    # lambda { row.baz }.must_raise NoMethodError
-  # end
+    lambda { row.bar.eight }.must_raise NoMethodError
+    lambda { row.bar.four  }.must_raise NoMethodError
+    lambda { row.baz       }.must_raise NoMethodError
+  end
 
 end
