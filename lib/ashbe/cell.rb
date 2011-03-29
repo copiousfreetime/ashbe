@@ -24,6 +24,10 @@ module Ashbe
     #
     def initialize( value, timestamp = nil )
       @value     = value
+      if value.is_bytes? then
+        puts "Extending value with FromBytes"
+        @value.extend( Ashbe::FromBytes )
+      end
       @timestamp = timestamp
     end
 
