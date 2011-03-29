@@ -24,4 +24,9 @@ describe Ashbe::BytesConversion do
     s.must_equal "the answer"
   end
 
+  it "#to_bytes does nothing to something that is already Java::byte[]" do
+    bytes = "the answer".to_bytes
+    bytes.to_bytes.object_id.must_equal bytes.object_id
+  end
+
 end

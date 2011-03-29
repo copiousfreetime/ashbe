@@ -6,6 +6,7 @@ module Ashbe
     # to_bytes( anything ) -> Java::byte[]
     #
     def self.to_bytes( anything )
+      return anything if Ashbe::BytesConversion.is_bytes?( anything )
       ::Ashbe::Java::Bytes.toBytes( anything )
     end
 
