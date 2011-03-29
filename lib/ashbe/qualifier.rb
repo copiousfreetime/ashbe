@@ -20,11 +20,11 @@ module Ashbe
       :empty?, :length, :size, :[], :each, :each_index,
       :index, :insert, :last
 
-    def initialize( name, cells = [] )
+    def initialize( name, in_cells = [] )
       @name = name.to_s
       @cells = Array.new
 
-      [ cells ].flatten.each do |cell|
+      [ in_cells ].flatten.each do |cell|
         @cells << Cell.new( cell )
       end
       @cells.sort!
