@@ -33,7 +33,7 @@ describe Ashbe::ColumnFamily do
   end
 
   it "raise an exception if accessing an invalid qualifier name via struct like access" do
-    lambda { @cf.worble }.must_raise IndexError
+    lambda { @cf.worble }.must_raise NoMethodError
   end
 
   it "can be filled with an array of qualifiers" do

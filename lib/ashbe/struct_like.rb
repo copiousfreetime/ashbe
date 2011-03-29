@@ -23,7 +23,7 @@ module Ashbe
         store( key, value )
       else
         key = method
-        raise( IndexError, "Invalid accessor name '#{key}'" ) unless has_key?( key )
+        raise( NoMethodError, "Invalid accessor name '#{key}'" ) unless has_key?( key )
         value = fetch( key )
       end
       return value
