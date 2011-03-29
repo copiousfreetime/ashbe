@@ -27,4 +27,9 @@ describe Ashbe::Row do
     p.size.must_equal 5
     p.has( "foo".to_bytes, "one".to_bytes  ).must_equal true
   end
+
+  it "can convert to a java Get object" do
+    r1 = ::Ashbe::Row.new( "12345" )
+    g = r1.to_get
+  end
 end
