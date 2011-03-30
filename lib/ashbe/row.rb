@@ -105,16 +105,11 @@ module Ashbe
       cf_data = Hash.new
       data.each do |column_family_name, qualifier_hash|
         cf = ::Ashbe::ColumnFamily.new( column_family_name )
-        case qualifier_hash
-        when Hash
-          qualifier_hash.each do |qualifier, value|
-            cf << ::Ashbe::Qualifier.new( qualifier, value )
+        unless qualifier_hash == :all then
+          qualifier_hash.each do |*p|
+            p.flatten!
+            cf << ::Ashbe::Qualifier.new( p.shift, p.shift )
           end
-        when Array
-          qualifier_hash.each do |qualifier|
-            cf << ::Ashbe::Qualifier.new( qualifier )
-          end
-        when :all
         end
         cf_data[column_family_name.to_s] = cf
       end
