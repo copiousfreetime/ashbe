@@ -17,9 +17,9 @@ describe Ashbe::Row do
 
     @row.key.must_equal "12345"
 
-    @row['foo']['one'].first.value.must_equal '1'
+    @row['foo']['one'].last_value.must_equal '1'
     @row.column_families.sort.must_equal @data.keys.sort
-    @row.foo.one.first.value.must_equal '1'
+    @row.foo.one.last_value.must_equal '1'
   end
 
   it "can convert to a java Put object" do
