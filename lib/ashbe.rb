@@ -86,6 +86,7 @@ module Ashbe
     require 'ashbe/configuration'
     require 'ashbe/qualifier'
     require 'ashbe/row'
+    require 'ashbe/row_criteria'
     require 'ashbe/table'
     require 'ashbe/table/meta'
 

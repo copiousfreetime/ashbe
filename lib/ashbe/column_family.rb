@@ -42,6 +42,8 @@ module Ashbe
           q = Qualifier.new( k, v )
           @qualifiers[q.name] = q
         end
+      when String
+        @qualifiers[qual] = Qualifier.new( qual )
       else
         raise ArgumentError, "Unable to add qualifier #{qual.class}:#{qual}"
       end
