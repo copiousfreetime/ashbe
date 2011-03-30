@@ -25,6 +25,7 @@ module Ashbe
       @cells = Array.new
 
       [ in_cells ].flatten.each do |cell|
+        next if cell.nil?
         @cells << Cell.new( cell )
       end
       @cells.sort!
