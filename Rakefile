@@ -24,6 +24,9 @@ Hoe.spec 'ashbe' do
 
   self.extra_rdoc_files = [ self.readme_file, self.history_file ]
 
+  # this gem is only for jruby
+  self.spec_extras[:platform] = "java"
+
   # test with minitest
   self.extra_dev_deps << [ 'minitest', '~> 2.0.2']
   self.testlib         = :minitest
