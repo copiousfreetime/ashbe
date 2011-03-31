@@ -82,5 +82,19 @@ module Ashbe
       return nil if result.isEmpty
       return ::Ashbe::Row.new( result )
     end
+
+    #
+    # Remove the whole row from the table, or just remove some of the data in a
+    # row.
+    #
+    # The rowid is required, and if 'data' is used, then only the data
+    # referenced there is removed.  'data' here works the same as with a #get
+    # request.
+    #
+    def delete( rowid, data = {} )
+      criteria = ::Ashbe::RowCriteria.new( rowid, data )
+      return @htable.delete( criteria.to_delete )
+    end
+
   end
 end
