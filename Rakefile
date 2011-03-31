@@ -30,7 +30,7 @@ Hoe.spec 'ashbe' do
   # test with minitest
   self.extra_dev_deps << [ 'minitest', '~> 2.0.2']
   self.testlib         = :minitest
-  self.test_globs      = ["test/**/*_spec.rb"]
+  self.test_globs      = ["test/**/*.rb", "test/**/*.xml"]
 
   # and we use autotest
   self.extra_dev_deps << [ 'ZenTest', '~> 4.5.0' ]
