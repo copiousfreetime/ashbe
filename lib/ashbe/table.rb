@@ -41,12 +41,12 @@ module Ashbe
     #     ....
     #   }
     #
-    # This will return the Asbhe::Row object of the data that was inserted
+    # This will return the Asbhe::RowCriteria object of the data that was inserted
     #
-    def put( row_key, row_data = {} )
-      row = ::Ashbe::RowCriteria.new( row_key, row_data )
-      @htable.put( row.to_put )
-      return row
+    def put( rowid, row_data = {} )
+      criteria = ::Ashbe::RowCriteria.new( rowid, row_data )
+      @htable.put( criteria.to_put )
+      return criteria
     end
 
 
@@ -76,9 +76,10 @@ module Ashbe
     #
     #   get( key, criteria = { 'foo' => %w[ qual1 qual2 ], 'bar' => %w[ age date ]})
     #
-    def get( row_key, data = {} )
-      criteria = ::Ashbe::RowCriteria.new( row_key, data )
+    def get( rowid , data = {} )
+      criteria = ::Ashbe::RowCriteria.new( rowid, data )
       result = @htable.get( criteria.to_get )
+      return nil if result.isEmpty
       return ::Ashbe::Row.new( result )
     end
   end

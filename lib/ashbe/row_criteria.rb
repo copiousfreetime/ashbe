@@ -71,6 +71,24 @@ module Ashbe
       return g
     end
 
+    #
+    # Convert the RowCriteria to a Delete object.
+    #
+    def to_delete
+      d = ::Ashbe::Java::Delete.new( rowid.to_bytes )
+      @column_families.each do |column_family_name, column_family|
+        all_qualifiers = true
+        column_family.each_value do |qualifier|
+          all_qualifiers = false
+          d.deleteColumns( column_family_name.to_bytes, qualifier.name.to_bytes )
+        end
+        d.deleteFamily( column_family_name.to_bytes ) if all_qualifiers
+      end
+
+      return d
+    end
+
+
     ###########################################################################
     private
     ###########################################################################

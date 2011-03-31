@@ -12,6 +12,7 @@ describe Ashbe::Table do
     @data = { 'foo' => { 'one'    => '1', 'two' => '2' },
               'bar' => { 'four'   => '4', 'six' => '6', 'eights' => 888 },
               'baz' => { 'wibble' => 'a' } }
+    @row_criteria = @table.put( 12345, @data )
 
   end
 
@@ -21,24 +22,23 @@ describe Ashbe::Table do
     end
   end
 
-  # it "can connect to a table" do
-    # t = ::Ashbe::Table.new( @table_name, @config )
-    # t.is_auto_flush?.must_equal true
-  # end
-
-  # it "can access the table's meta data" do
-    # @table.name.must_equal @table_name
-    # @table.meta.column_families.size.must_equal @families.size
-  # end
-
-  it "can put a row into the table" do
-    row = @table.put( 12345, @data )
-    row.rowid.must_equal 12345
-    row.column_families.size.must_equal 3
+  it "can connect to a table" do
+    t = ::Ashbe::Table.new( @table_name, @config )
+    t.is_auto_flush?.must_equal true
   end
 
+  it "can access the table's meta data" do
+    @table.name.must_equal @table_name
+    @table.meta.column_families.size.must_equal @families.size
+  end
+
+  it "can put a row into the table" do
+    @row_criteria.rowid.must_equal 12345
+    @row_criteria.column_families.size.must_equal 3
+  end
+
+
   it "can put a row into the table and retrieve it back out" do
-    @table.put( 12345, @data )
     row = @table.get( 12345 )
     row.rowid.to_fixnum.must_equal 12345
     row.column_families.size.must_equal 3
@@ -48,7 +48,6 @@ describe Ashbe::Table do
   end
 
   it "can put a row into the table and retrieve just a column familiy" do
-    @table.put( 12345, @data )
     row = @table.get( 12345, { 'foo' => :all, 'bar' => :all } )
     row.rowid.to_fixnum.must_equal 12345
     row.column_families.size.must_equal 2
@@ -58,7 +57,6 @@ describe Ashbe::Table do
   end
 
   it "can put a row into the table and retrieve just a column family and qualifier" do
-    @table.put( 12345, @data )
     row = @table.get( 12345, { 'foo' => :all, 'bar' => %w[ six ] } )
     row.rowid.to_fixnum.must_equal 12345
     row.column_families.size.must_equal 2
