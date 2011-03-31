@@ -96,5 +96,26 @@ module Ashbe
       return @htable.delete( criteria.to_delete )
     end
 
+    #
+    # Do a Scan operation on the table.  Optionally give the start and end
+    # location, with an additional 'data' parameter in the same manner as #get
+    # and #delete.
+    #
+    # If using both a start and end, then specify it as a Range that is
+    # non-inclusive of the end parameter i.e (start...end).
+    #
+    # Hbase scanning will not return the 'end' row.
+    #
+    # scan yields each result Row
+    #
+    def scan( exclusive_range, data = {}, &block )
+      warn "Hbase will not return the row with id '#{exclusive_range.end}'.  You probably want (#{exclusive_range.begin}...#{exclusive_range.end})" unless exclusive_range.exclude_end?
+      criteria = ::Ashbe::RowCriteria.new( exclusive_range, data )
+      results_scanner = @htable.getScanner( criteria.to_scan )
+      results_scanner.each do |result|
+        yield ::Ashbe::Row.new( result )
+      end
+      results_scanner.close
+    end
   end
 end

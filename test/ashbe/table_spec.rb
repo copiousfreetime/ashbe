@@ -86,4 +86,14 @@ describe Ashbe::Table do
     lambda { row.bar.six  }.must_raise NoMethodError
     lambda { row.baz      }.must_raise NoMethodError
   end
+
+  it "can scan through through a set of rows" do
+    10.times { |x|  @table.put(x, @data ) }
+    rows = []
+    @table.scan( 2..7 ) do |row| # this should also spit a warning out
+      rows << row
+    end
+    rows.size.must_equal 5
+    rows.first.rowid.to_fixnum.must_equal 2
+  end
 end
