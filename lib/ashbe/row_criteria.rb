@@ -19,22 +19,22 @@ module Ashbe
 
     alias_method :column_families, :keys
 
-    attr_reader :first_rowid
-    attr_reader :last_rowid
+    attr_reader :rowid_first
+    attr_reader :rowid_last
 
     def initialize( rowid_or_range, data = {} )
-      @first_rowid = rowid_or_range
-      @last_rowid  = nil
+      @rowid_first = rowid_or_range
+      @rowid_last  = nil
       if rowid_or_range.kind_of?( Range )
-        @first_rowid = rowid_or_range.first
-        @last_rowid  = rowid_or_range.last
+        @rowid_first = rowid_or_range.first
+        @rowid_last  = rowid_or_range.last
       end
 
       @column_families = to_column_families_hash( data )
     end
 
     def rowid
-      @first_rowid
+      @rowid_first
     end
 
     #
@@ -68,18 +68,19 @@ module Ashbe
     #
     def to_get
       g = ::Ashbe::Java::Get.new( rowid.to_bytes )
-
-      @column_families.each do |column_family_name, column_family|
-        all_qualifiers = true
-        column_family.each_value do |qualifier|
-          all_qualifiers = false
-          g.addColumn( column_family_name.to_bytes, qualifier.name.to_bytes )
-        end
-        g.addFamily( column_family_name.to_bytes ) if all_qualifiers
-      end
-
-      return g
+      return populate_action( g )
     end
+
+
+    #
+    # Convert the RowCriteria to a Scan object
+    #
+    def to_scan
+      s = ::Ashbe::Java::Scan.new( @rowid_first.to_bytes, @rowid_last.to_bytes )
+      return populate_action( s )
+    end
+
+
 
     #
     # Convert the RowCriteria to a Delete object.
@@ -125,6 +126,18 @@ module Ashbe
       end
 
       return cf_data
+    end
+
+    def populate_action( a )
+      @column_families.each do |column_family_name, column_family|
+        all_qualifiers = true
+        column_family.each_value do |qualifier|
+          all_qualifiers = false
+          a.addColumn( column_family_name.to_bytes, qualifier.name.to_bytes )
+        end
+        a.addFamily( column_family_name.to_bytes ) if all_qualifiers
+      end
+      return a
     end
 
   end

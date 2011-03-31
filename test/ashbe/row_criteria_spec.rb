@@ -27,15 +27,15 @@ describe Ashbe::RowCriteria do
 
   it "can take a range as the first parameter to have a first and last row" do
     c = Ashbe::RowCriteria.new( "a".."z" )
-    c.first_rowid.must_equal "a"
-    c.last_rowid.must_equal "z"
+    c.rowid_first.must_equal "a"
+    c.rowid_last.must_equal "z"
   end
 
-  it "when taking a non-range as the first parameteter, last_rowid must be null" do
+  it "when taking a non-range as the first parameteter, rowid_last must be null" do
     c = Ashbe::RowCriteria.new( "foo" )
-    c.first_rowid.must_equal "foo"
+    c.rowid_first.must_equal "foo"
     c.rowid.must_equal "foo"
-    c.last_rowid.must_be_nil
+    c.rowid_last.must_be_nil
   end
 
   it "can be created from a nested hash" do
