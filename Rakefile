@@ -16,6 +16,8 @@ Hoe.plugin :doofus, :git, :gemspec2
 Hoe.spec 'ashbe' do
   developer 'Jeremy Hinegardner', 'jeremy@copiousfreetime.org'
 
+  self.url = 'http://copiousfreetime.org/projects/ashbe'
+
   # Use rdoc for history and readme
   self.history_file = 'HISTORY.rdoc'
   self.readme_file  = 'README.rdoc'
