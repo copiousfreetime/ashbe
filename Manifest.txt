@@ -1,6 +1,5 @@
 .autotest
 .gemtest
-.rvmrc
 Buildfile
 HISTORY.rdoc
 LICENSE.txt
@@ -19,17 +18,20 @@ lib/ashbe/configuration.rb
 lib/ashbe/java.rb
 lib/ashbe/qualifier.rb
 lib/ashbe/row.rb
+lib/ashbe/row_criteria.rb
 lib/ashbe/struct_like.rb
 lib/ashbe/table.rb
 lib/ashbe/table/meta.rb
 lib/core_ext/to_bytes.rb
 test/ashbe/admin_spec.rb
+test/ashbe/bytes_spec.rb
 test/ashbe/cell_spec.rb
 test/ashbe/column_family/meta_spec.rb
 test/ashbe/column_family_spec.rb
 test/ashbe/compression_spec.rb
 test/ashbe/configuration_spec.rb
 test/ashbe/qualifier_spec.rb
+test/ashbe/row_criteria_spec.rb
 test/ashbe/row_spec.rb
 test/ashbe/table/meta_spec.rb
 test/ashbe/table_spec.rb
