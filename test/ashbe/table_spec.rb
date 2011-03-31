@@ -69,4 +69,21 @@ describe Ashbe::Table do
     lambda { row.baz       }.must_raise NoMethodError
   end
 
+  it "can delete a row that exists in the table" do
+    @table.delete( 12345 )
+    row = @table.get( 12345 )
+    row.must_be_nil
+  end
+
+  it "can delete just some column families from a row that exists in the table" do
+    @table.delete( 12345, { 'baz' => :all, 'bar' => %w[ four six ] })
+    row = @table.get( 12345 )
+    row.foo.one.last_value.to_string.must_equal '1'
+    row.foo.two.last_value.to_string.must_equal '2'
+    row.bar.eights.last_value.to_fixnum.must_equal 888
+
+    lambda { row.bar.four }.must_raise NoMethodError
+    lambda { row.bar.six  }.must_raise NoMethodError
+    lambda { row.baz      }.must_raise NoMethodError
+  end
 end
