@@ -19,19 +19,29 @@ module Ashbe
 
     alias_method :column_families, :keys
 
-    attr_reader :rowid
+    attr_reader :first_rowid
+    attr_reader :last_rowid
 
-    def initialize( rowid, data = {} )
-      @rowid           = rowid
+    def initialize( rowid_or_range, data = {} )
+      @first_rowid = rowid_or_range
+      @last_rowid  = nil
+      if rowid_or_range.kind_of?( Range )
+        @first_rowid = rowid_or_range.first
+        @last_rowid  = rowid_or_range.last
+      end
+
       @column_families = to_column_families_hash( data )
     end
 
+    def rowid
+      @first_rowid
+    end
 
     #
     # Convert the RowCriteria to an HBase Put object
     #
     def to_put
-      p = ::Ashbe::Java::Put.new( @rowid.to_bytes )
+      p = ::Ashbe::Java::Put.new( rowid.to_bytes )
       @column_families.each do |column_family_name, column_family|
         column_family.each_value do |qualifier|
           p.add( column_family_name.to_bytes,
@@ -57,7 +67,7 @@ module Ashbe
     # then we filter at the column familiy level
     #
     def to_get
-      g = ::Ashbe::Java::Get.new( @rowid.to_bytes )
+      g = ::Ashbe::Java::Get.new( rowid.to_bytes )
 
       @column_families.each do |column_family_name, column_family|
         all_qualifiers = true
@@ -65,7 +75,7 @@ module Ashbe
           all_qualifiers = false
           g.addColumn( column_family_name.to_bytes, qualifier.name.to_bytes )
         end
-        g.addColumn( column_family_name.to_bytes ) if all_qualifiers
+        g.addFamily( column_family_name.to_bytes ) if all_qualifiers
       end
 
       return g

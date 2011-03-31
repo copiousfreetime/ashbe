@@ -25,6 +25,19 @@ describe Ashbe::RowCriteria do
     p.has( "foo".to_bytes, "one".to_bytes  ).must_equal true
   end
 
+  it "can take a range as the first parameter to have a first and last row" do
+    c = Ashbe::RowCriteria.new( "a".."z" )
+    c.first_rowid.must_equal "a"
+    c.last_rowid.must_equal "z"
+  end
+
+  it "when taking a non-range as the first parameteter, last_rowid must be null" do
+    c = Ashbe::RowCriteria.new( "foo" )
+    c.first_rowid.must_equal "foo"
+    c.rowid.must_equal "foo"
+    c.last_rowid.must_be_nil
+  end
+
   it "can be created from a nested hash" do
     @criteria.rowid.must_equal "12345"
     lambda { @criteria.foo.one }.must_raise NoMethodError
