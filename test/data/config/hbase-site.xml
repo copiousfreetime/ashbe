@@ -23,6 +23,19 @@
 -->
 <configuration>
   <property>
+    <name>hbase.master.info.bindAddress</name>
+    <value>127.0.0.1</value>
+  </property>
+  <property>
+    <name>hbase.regionserver.info.bindAddress</name>
+    <value>127.0.0.1</value>
+  </property>
+  <property>
+    <name>hbase.zookeeper.quorum</name>
+    <value>127.0.0.1</value>
+  </property>
+
+  <property>
     <name>hbase.regionserver.msginterval</name>
     <value>1000</value>
     <description>Interval between messages from the RegionServer to HMaster
