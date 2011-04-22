@@ -7,7 +7,7 @@ describe Ashbe::Table do
     @admin      = ::Ashbe::Admin.new( @config )
     @table_name = "test_table"
     @families   = %w[ foo bar baz ].collect { |c| Ashbe::ColumnFamily::Meta.new( c ) }.sort_by{ |f| f.name }
-    @admin.create_table( @table_name, @families )
+    @admin.create_table( @table_name, @families ) unless @admin.table_exists?( @table_name )
     @table      = ::Ashbe::Table.new( @table_name, @config )
     @data = { 'foo' => { 'one'    => '1', 'two' => '2' },
               'bar' => { 'four'   => '4', 'six' => '6', 'eights' => 888 },
@@ -95,5 +95,13 @@ describe Ashbe::Table do
     end
     rows.size.must_equal 5
     rows.first.rowid.to_fixnum.must_equal 2
+  end
+
+  it "can know that a row does not exist in the table" do
+    @table.exists?( 54321 ).must_equal false
+  end
+
+  it "can know that a row does exist in the table" do
+    @table.exists?( 12345 ).must_equal true
   end
 end

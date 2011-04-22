@@ -84,6 +84,15 @@ module Ashbe
     end
 
     #
+    # See if the give row key exists.
+    #
+    def exists?( rowid )
+      criteria = ::Ashbe::RowCriteria.new( rowid )
+      result = @htable.exists( criteria.to_get )
+      return result
+    end
+
+    #
     # Remove the whole row from the table, or just remove some of the data in a
     # row.
     #
