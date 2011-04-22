@@ -1,6 +1,8 @@
+=== 1.1.0 / 2011-04-21
+
+* Added ability to check the existence of a row in a table.
+
 === 1.0.1 / 2011-03-31
 
-* 1 major enhancement
-
-  * Birthday!
+* Initial stable release
 

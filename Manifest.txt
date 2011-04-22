@@ -37,5 +37,6 @@ test/ashbe/table/meta_spec.rb
 test/ashbe/table_spec.rb
 test/ashbe_spec.rb
 test/data/config/hbase-site.xml
+test/data/config/hdfs-site.xml
 test/spec_helper.rb
 test/testing_cluster_helper.rb

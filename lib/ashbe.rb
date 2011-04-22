@@ -16,7 +16,7 @@
 #     Ashbe.initialize( "directory/to/jars" )
 #
 module Ashbe
-  VERSION = '1.0.1'
+  VERSION = '1.1.0'
 
   class Error < ::StandardError; end
 
