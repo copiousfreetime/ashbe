@@ -7,6 +7,7 @@ Manifest.txt
 README.rdoc
 Rakefile
 bin/ashbe
+bin/ashbe-test-cluster
 lib/ashbe.rb
 lib/ashbe/admin.rb
 lib/ashbe/bytes.rb
@@ -22,6 +23,7 @@ lib/ashbe/row_criteria.rb
 lib/ashbe/struct_like.rb
 lib/ashbe/table.rb
 lib/ashbe/table/meta.rb
+lib/ashbe/test/cluster.rb
 lib/core_ext/to_bytes.rb
 test/ashbe/admin_spec.rb
 test/ashbe/bytes_spec.rb
@@ -39,4 +41,3 @@ test/ashbe_spec.rb
 test/data/config/hbase-site.xml
 test/data/config/hdfs-site.xml
 test/spec_helper.rb
-test/testing_cluster_helper.rb
