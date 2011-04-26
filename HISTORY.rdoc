@@ -1,3 +1,7 @@
+=== 1.2.0 / 2011-04-26
+
+* Exposed Test::Cluster as an external command for use by others
+
 === 1.1.0 / 2011-04-21
 
 * Added ability to check the existence of a row in a table.
