@@ -1,16 +1,15 @@
-require 'spec_helper'
-
 module Ashbe
-  module Testing
+  module Test
     class Cluster
       def self.config_files
-        spec_config_files
+        config_dir = File.expand_path( "../spec/data/config", File.dirname( __FILE__ ))
+        Dir.glob( File.join( config_dir, "*.xml" ) )
       end
 
       attr_reader :config
 
-      def initialize
-        @config  = ::Ashbe::Configuration.new( Cluster.config_files )
+      def initialize( config_files = Cluster.config_files )
+        @config  = ::Ashbe::Configuration.new( config_files )
         @utility = org.apache.hadoop.hbase.HBaseTestingUtility.new( @config )
       end
 
@@ -41,11 +40,3 @@ module Ashbe
   end
 end
 
-if $0 == __FILE__ then
-  @cluster = Ashbe::Testing::Cluster.new
-  @cluster.start
-  puts "CLUSTER STARTED"
-  trap 'INT' do
-    @cluster.stop 
-  end
-end

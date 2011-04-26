@@ -89,6 +89,7 @@ module Ashbe
     require 'ashbe/row_criteria'
     require 'ashbe/table'
     require 'ashbe/table/meta'
+    require 'ashbe/test/cluster'
 
   end
 

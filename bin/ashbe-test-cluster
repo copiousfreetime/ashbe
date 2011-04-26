@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'ashbe'
+
+options = {}
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: asbhe-test-cluster [options]"
+
+  opts.separator""
+
+  opts.on( "--jardir /foo,/bar/baz,/wibble", Array, "List of directories containing jars to require") do |list|
+    options['jardir'] = list
+  end
+
+  opts.on( "--config-files hbase-site.xml,mapred-site.xml", Array, "List of hbase/hadoop config files to use" ) do |list|
+    options['config-files'] = list
+  end
+
+  opts.on_tail( "-h", "--help", "Show this message") do 
+    $stderr.puts opts
+    exit
+  end
+end
+
+opts.parse!( ARGV )
+
+Ashbe.initialize( options['jardir'] )
+
+config_files = options['config-files'] || Ashbe::Test::Cluster.config_files
+
+cluster = Ashbe::Test::Cluster.new( config_files )
+cluster.start
+puts "CLUSTER STARTED"
+trap 'INT' do
+  cluster.stop
+end
