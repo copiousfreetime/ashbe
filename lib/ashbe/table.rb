@@ -25,6 +25,11 @@ module Ashbe
       @htable.isAutoFlush
     end
 
+    def close
+      @htable.close
+      ::Ashbe::Java::HConnectionManager.deleteConnection( @config, true )
+    end
+
     #
     # TODO: figure out how to extrac all the methods from HTableInterface and
     # delegate them to @htable
